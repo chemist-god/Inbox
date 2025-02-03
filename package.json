@@ -15,5 +15,8 @@
     "url": "https://github.com/chemist-god/Inbox/issues"
   },
   "homepage": "https://github.com/chemist-god/Inbox#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "solc": "^0.8.28"
+  }
 }
