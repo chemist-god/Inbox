@@ -16,12 +16,11 @@ class Car {
 describe('Car', () => {
     it('can park', () => {
         const car = new Car();
-        assert.equal(car.park(), 'stopped');
+        assert.strictEqual(car.park(), 'stopped'); // Updated to strictEqual
     });
     
     it('can drive', () => {
         const car = new Car();
-        assert.equal(car.drive(), 'vroom');
+        assert.strictEqual(car.drive(), 'vroom'); // Updated to strictEqual
     });
 });
-
