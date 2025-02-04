@@ -13,6 +13,12 @@ class Car {
     }
 }
 
+beforeEach( () => {
+    
+    console.log('beforeEach');
+});
+
+
 describe('Car', () => {
     it('can park', () => {
         const car = new Car();
