@@ -1,32 +1,16 @@
 const assert = require('assert');
 const ganache = require('ganache-cli');
+const { beforeEach } = require('mocha');
 const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 
-//These Car class and beforeEach are just for testing purposes
-class Car {
-    park() {
-        return 'stopped';
-    }
-    
-    drive() {
-        return 'vroom';
-    }
-}
-
-let car; 
-
-beforeEach( () => {
-     car = new Car();
+beforeEach(() => {
+web3.eth.getAccounts().then(fetchedAccounts => {
+  console.log(fetchedAccounts);
+});
 });
 
 
-describe('Car', () => {
-    it('can park', () => {
-        assert.strictEqual(car.park(), 'stopped'); // Updated to strictEqual
-    });
-    
-    it('can drive', () => {
-        assert.strictEqual(car.drive(), 'vroom'); // Updated to strictEqual
-    });
-});
+ describe('Inbox', () => {
+  it('deploys a contract', () => {});
+ });
