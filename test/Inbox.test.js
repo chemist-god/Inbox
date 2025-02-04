@@ -3,6 +3,7 @@ const ganache = require('ganache-cli');
 const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 
+//These Car class and beforeEach are just for testing purposes
 class Car {
     park() {
         return 'stopped';
@@ -13,20 +14,19 @@ class Car {
     }
 }
 
+let car; 
+
 beforeEach( () => {
-    
-    console.log('beforeEach');
+     car = new Car();
 });
 
 
 describe('Car', () => {
     it('can park', () => {
-        const car = new Car();
         assert.strictEqual(car.park(), 'stopped'); // Updated to strictEqual
     });
     
     it('can drive', () => {
-        const car = new Car();
         assert.strictEqual(car.drive(), 'vroom'); // Updated to strictEqual
     });
 });
