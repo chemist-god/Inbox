@@ -26,6 +26,13 @@ const input = {
 // Compile the contract
 const output = JSON.parse(solc.compile(JSON.stringify(input)));
 
+// Check for compilation errors
+if (output.errors) {
+    output.errors.forEach(err => {
+        console.error(err.formattedMessage);
+    });
+}
+
 // Export the ABI and bytecode
 module.exports = {
     abi: output.contracts['Inbox.sol'].Inbox.abi,
