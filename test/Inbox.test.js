@@ -11,11 +11,17 @@ let inbox;
 beforeEach(async () => {
     // Get a list of all accounts
     accounts = await web3.eth.getAccounts();
+    console.log('Accounts:', accounts);
 
     // Use one of those accounts to deploy the contract
-    inbox = await new web3.eth.Contract(abi) // Use the correct ABI
-        .deploy({ data: bytecode, arguments: ['Hi there!'] })
-        .send({ from: accounts[0], gas: '5000000' });
+    try {
+        inbox = await new web3.eth.Contract(abi) // Use the correct ABI
+            .deploy({ data: bytecode, arguments: ['Hi there!'] })
+            .send({ from: accounts[0], gas: '5000000' });
+        console.log('Contract deployed at:', inbox.options.address);
+    } catch (error) {
+        console.error('Deployment error:', error);
+    }
 });
 
 describe('Inbox', () => {
