@@ -26,8 +26,8 @@ const input = {
 // Compile the contract
 const output = JSON.parse(solc.compile(JSON.stringify(input)));
 
-// Export the interface and bytecode
+// Export the ABI and bytecode
 module.exports = {
-    interface: output.contracts['Inbox.sol'].Inbox.abi,
+    abi: output.contracts['Inbox.sol'].Inbox.abi,
     bytecode: output.contracts['Inbox.sol'].Inbox.evm.bytecode.object,
 };
