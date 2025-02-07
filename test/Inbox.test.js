@@ -15,9 +15,9 @@ beforeEach(async () => {
 
     // Use one of those accounts to deploy the contract
     try {
-        inbox = await new web3.eth.Contract(abi) // Use the correct ABI
+        inbox = await new web3.eth.Contract(abi)
             .deploy({ data: bytecode, arguments: ['Hi there!'] })
-            .send({ from: accounts[0], gas: '5000000' });
+            .send({ from: accounts[0], gas: '1000000' }); // Reduce gas limit
         console.log('Contract deployed at:', inbox.options.address);
     } catch (error) {
         console.error('Deployment error:', error);
@@ -26,6 +26,10 @@ beforeEach(async () => {
 
 describe('Inbox', () => {
     it('deploys a contract', () => {
-        assert.ok(inbox.options.address); // Check if the contract has an address
+        if (inbox && inbox.options) {
+            assert.ok(inbox.options.address); // Check if the contract has an address
+        } else {
+            throw new Error('Contract deployment failed');
+        }
     });
 });
