@@ -31,10 +31,18 @@ if (output.errors) {
     output.errors.forEach(err => {
         console.error(err.formattedMessage);
     });
+} else {
+    console.log('Compilation successful:', output);
+}
+
+// Ensure the bytecode is valid
+const bytecode = output.contracts['Inbox.sol'].Inbox.evm.bytecode.object;
+if (!bytecode || bytecode.length === 0) {
+    throw new Error('Bytecode is invalid or empty');
 }
 
 // Export the ABI and bytecode
 module.exports = {
     abi: output.contracts['Inbox.sol'].Inbox.abi,
-    bytecode: output.contracts['Inbox.sol'].Inbox.evm.bytecode.object,
+    bytecode: bytecode,
 };
