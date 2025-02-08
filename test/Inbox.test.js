@@ -1,3 +1,4 @@
+// inbox.test.js
 const assert = require('assert');
 const ganache = require('ganache-cli');
 const { beforeEach } = require('mocha');
@@ -6,7 +7,7 @@ const web3 = new Web3(ganache.provider());
 const { abi, bytecode } = require('../compile');
 
 let accounts;
-let inbox; 
+let inbox;
 
 beforeEach(async () => {
     // Get a list of all accounts
@@ -16,8 +17,11 @@ beforeEach(async () => {
     // Use one of those accounts to deploy the contract
     try {
         inbox = await new web3.eth.Contract(abi)
-            .deploy({ data: bytecode, arguments: ['Hi there!'] })
-            .send({ from: accounts[0], gas: '1000000' }); // Reduce gas limit
+            .deploy({
+                data: '0x' + bytecode, // Add '0x' prefix to bytecode
+                arguments: ['Hi there!']
+            })
+            .send({ from: accounts[0], gas: '1000000' });
         console.log('Contract deployed at:', inbox.options.address);
     } catch (error) {
         console.error('Deployment error:', error);
