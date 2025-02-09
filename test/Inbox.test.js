@@ -30,10 +30,11 @@ beforeEach(async () => {
 
 describe('Inbox', () => {
     it('deploys a contract', () => {
-        if (inbox && inbox.options) {
             assert.ok(inbox.options.address); // Check if the contract has an address
-        } else {
-            throw new Error('Contract deployment failed');
-        }
+    });
+
+    it('has a default message', async () => {
+        const message = await inbox.methods.message().call();
+        assert.strictEqual(message, 'Hi there!');
     });
 });
