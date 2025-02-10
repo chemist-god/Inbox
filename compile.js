@@ -36,7 +36,7 @@ if (output.errors) {
     console.log('Compilation successful:', output);
 }
 
-// Ensure the bytecode is valid
+// Ensure the bytecode is valid and prefixed with '0x'
 const bytecode = output.contracts['Inbox.sol'].Inbox.evm.bytecode.object;
 if (!bytecode || bytecode.length === 0) {
     throw new Error('Bytecode is invalid or empty');
@@ -45,5 +45,5 @@ if (!bytecode || bytecode.length === 0) {
 // Export the ABI and bytecode
 module.exports = {
     abi: output.contracts['Inbox.sol'].Inbox.abi,
-    bytecode: bytecode,
+    bytecode: '0x' + bytecode,
 };
