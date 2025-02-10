@@ -17,10 +17,7 @@ beforeEach(async () => {
     // Use one of those accounts to deploy the contract
     try {
         inbox = await new web3.eth.Contract(abi)
-            .deploy({
-                data: '0x' + bytecode, // Add '0x' prefix to bytecode
-                arguments: ['Hi there!']
-            })
+            .deploy({ data: bytecode, arguments: ['Hi there!'] })
             .send({ from: accounts[0], gas: '1000000' });
         console.log('Contract deployed at:', inbox.options.address);
     } catch (error) {
@@ -30,17 +27,29 @@ beforeEach(async () => {
 
 describe('Inbox', () => {
     it('deploys a contract', () => {
+        if (inbox && inbox.options) {
             assert.ok(inbox.options.address); // Check if the contract has an address
+        } else {
+            throw new Error('Contract deployment failed');
+        }
     });
 
     it('has a default message', async () => {
-        const message = await inbox.methods.message().call();
-        assert.strictEqual(message, 'Hi there!');
+        if (inbox && inbox.methods) {
+            const message = await inbox.methods.message().call();
+            assert.strictEqual(message, 'Hi there!');
+        } else {
+            throw new Error('Contract deployment failed');
+        }
     });
 
     it('can change the message', async () => {
-        await inbox.methods.setMessage('Hello!').send({ from: accounts[0] });
-        const message = await inbox.methods.message().call();
-        assert.strictEqual(message, 'Hello!');
+        if (inbox && inbox.methods) {
+            await inbox.methods.setMessage('Hello!').send({ from: accounts[0] });
+            const message = await inbox.methods.message().call();
+            assert.strictEqual(message, 'Hello!');
+        } else {
+            throw new Error('Contract deployment failed');
+        }
     });
 });
